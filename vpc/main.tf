@@ -41,6 +41,44 @@ module "vpc" {
   }
 }
 
+module "vpc_endpoints" {
+  source             = "./vpc-public-module//modules/vpc-endpoints"
+  vpc_id             = module.vpc.vpc_id
+  endpoints = {
+    ecr_dkr = {
+      service             = "ecr.dkr"
+      # policy              = data.aws_iam_policy_document.vpc_endpoint_policy_ecr.json
+      private_dns_enabled = true
+      subnet_ids          = module.vpc.private_subnets
+    },
+    logs = {
+      service             = "logs"
+      # policy              = data.aws_iam_policy_document.vpc_endpoint_policy_default.json
+      private_dns_enabled = true
+      subnet_ids          = module.vpc.private_subnets
+    },
+    s3 = {
+      service             = "s3"
+      # policy              = data.aws_iam_policy_document.vpc_endpoint_policy_s3.json
+      private_dns_enabled = true
+      route_table_ids     = module.vpc.private_route_table_ids
+      service_type        = "Gateway"
+    },
+    secretsmanager = {
+      service             = "secretsmanager"
+      # policy              = data.aws_iam_policy_document.vpc_endpoint_policy_default.json
+      private_dns_enabled = true
+      subnet_ids          = module.vpc.private_subnets
+    },
+    ssm = {
+      service             = "ssm"
+      # policy              = data.aws_iam_policy_document.vpc_endpoint_policy_default.json
+      private_dns_enabled = true
+      subnet_ids          = module.vpc.private_subnets
+    },
+  }
+}
+
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "this" {
   subnet_ids         = concat(concat(module.vpc.public_subnets, module.vpc.private_subnets), module.vpc.database_subnets)
