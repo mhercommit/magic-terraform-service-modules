@@ -1,0 +1,16 @@
+# Set common variables for the region. This is automatically pulled in in the root terragrunt.hcl configuration to
+# configure the remote state bucket and pass forward to the child modules as inputs.
+locals {
+  aws_region = "us-east-2"
+}
+
+generate "main_providers" {
+  path      = "providers.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<EOF
+
+provider "aws" {
+  region = "us-east-2"
+}
+EOF
+}
