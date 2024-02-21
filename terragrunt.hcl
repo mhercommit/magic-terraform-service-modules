@@ -8,7 +8,7 @@ remote_state {
   backend = "s3"
   config = {
     encrypt        = true
-    bucket         = "${get_env("TG_BUCKET_PREFIX", "")}terragrunt-terraform-state-jewbweujfiwebuifbweiuf
+    bucket         = "${get_env("TG_BUCKET_PREFIX", "")}terragrunt-terraform-state-jewbweujfiwebuifbweiuf"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = us-east-1
     dynamodb_table = "terraform-locks"
