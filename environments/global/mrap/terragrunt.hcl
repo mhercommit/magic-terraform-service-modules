@@ -3,10 +3,10 @@ include {
 }
 
 locals {
-  environment_vars = jsondecode(read_tfvars_file("../../../qa.tfvars"))
-  aws_region1 = local.environment_vars.region1
-  aws_region2 = local.environment_vars.region2
-  account_id  = local.environment_vars.account_id
+  environment_vars = read_terragrunt_config(find_in_parent_folders("qa.hcl"))
+  aws_region1 = local.environment_vars.locals.region1
+  aws_region2 = local.environment_vars.locals.region2
+  account_id = local.environment_vars.locals.account_id
 }
 
 generate "main_providers" {

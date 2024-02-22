@@ -3,8 +3,9 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  environment_vars = jsondecode(read_tfvars_file("qa.tfvars"))
-  aws_region = local.environment_vars.region1
+  environment_vars = read_terragrunt_config(find_in_parent_folders("qa.hcl"))
+  aws_region = local.environment_vars.locals.region1
+  account_id = local.environment_vars.locals.account_id
 }
 
 # Configure Terragrunt to automatically store tfstate files in an S3 bucket
@@ -13,7 +14,7 @@ remote_state {
   backend = "s3"
   config = {
     encrypt        = true
-    bucket         = "${get_env("TG_BUCKET_PREFIX", "")}terragrunt-terraform-state-${local.account_name}-${local.aws_region}"
+    bucket         = "${get_env("TG_BUCKET_PREFIX", "")}terragrunt-terraform-state--${local.account_id}-${local.aws_region}"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = local.aws_region
     dynamodb_table = "terraform-locks"
@@ -29,5 +30,5 @@ remote_state {
 # These variables apply to all configurations in this subfolder. These are automatically merged into the child
 # ---------------------------------------------------------------------------------------------------------------------
 inputs = merge(
-  environment_vars
+  local.environment_vars.locals
 )
