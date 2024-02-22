@@ -30,7 +30,7 @@ terraform {
 }
 
 inputs = {
-  account_id = local.account_id
-  aws_region = local.aws_region1
-  replica_region = local.aws_region2
+  account_id = local.environment_vars.locals.account_id
+  aws_region = local.environment_vars.locals.region1
+  replica_region = local.environment_vars.locals.region2
 }
