@@ -1,6 +1,10 @@
 resource "aws_cloudfront_public_key" "this" {
   encoded_key = file("public_key.pem")
   name        = "cloudfront-public-key-${var.account_id}"
+
+  lifecycle {
+   ignore_changes = [ true ] 
+  }
 }
 
 resource "aws_cloudfront_key_group" "this" {
