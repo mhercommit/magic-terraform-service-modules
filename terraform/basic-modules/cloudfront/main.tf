@@ -3,7 +3,7 @@ resource "aws_cloudfront_public_key" "this" {
   name        = "cloudfront-public-key-${var.account_id}"
 
   lifecycle {
-   ignore_changes = [ all ] 
+   ignore_changes=all
   }
 }
 
