@@ -10,7 +10,6 @@ locals {
 
 # Configure Terragrunt to automatically store tfstate files in an S3 bucket
 remote_state {
-  0
   backend = "s3"
   config = {
     encrypt        = true
