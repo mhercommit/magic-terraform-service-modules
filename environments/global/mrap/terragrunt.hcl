@@ -15,12 +15,12 @@ generate "main_providers" {
   contents  = <<EOF
 
 provider "aws" {
-  region = local.environment_vars.locals.region1
+  region = local.aws_region2
 }
 
 provider "aws" {
   alias  = "us-west-1"
-  region = local.environment_vars.locals.region2
+  region = local.aws_region2
 }
 EOF
 }
