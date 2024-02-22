@@ -6,7 +6,7 @@ module "s3" {
 }
 
 module "mrap" {
-  source                 = "../../basicmodules/mrap"
+  source                 = "../../basic-modules/mrap"
   account_id             = var.account_id
   s3_bucket_secondary_id = module.s3.secondary_bucket_id
   s3_bucket_id           = module.s3.primary_bucket_id
