@@ -1,4 +1,8 @@
 module "s3" {
+  providers = {
+    aws = aws
+    aws.us-west-1 = aws.us-west-1
+  }
   source         = "../../basic-modules/s3"
   account_id     = var.account_id
   aws_region     = var.aws_region
