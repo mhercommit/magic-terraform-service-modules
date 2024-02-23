@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  environment_vars = read_terragrunt_config(find_in_parent_folders("qa.hcl"))
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
   aws_region = local.environment_vars.locals.region1
   account_id = local.environment_vars.locals.account_id
 }

@@ -3,7 +3,7 @@ include {
 }
 
 locals {
-  environment_vars = read_terragrunt_config(find_in_parent_folders("qa.hcl"))
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
   aws_region1 = local.environment_vars.locals.region1
   aws_region2 = local.environment_vars.locals.region2
   account_id = local.environment_vars.locals.account_id
@@ -15,12 +15,12 @@ generate "main_providers" {
   contents  = <<EOF
 
 provider "aws" {
-  region = "us-east-1"
+  region = ${local.aws_region1}
 }
 
 provider "aws" {
-  alias  = "us-west-1"
-  region = "us-west-1"
+  alias  = ${local.aws_region2}
+  region = ${local.aws_region2}
 }
 EOF
 }
