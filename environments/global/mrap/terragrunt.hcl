@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias  = "us-west-1"
+  alias  = "${local.aws_region2}"
   region = "${local.aws_region2}"
 }
 EOF
